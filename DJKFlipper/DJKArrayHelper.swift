@@ -10,11 +10,11 @@ import Foundation
 
 //stolen from http://stackoverflow.com/a/24939100
 extension Array {
-    mutating func removeObject<U: Equatable>(object: U) -> Bool {
-        for (idx, objectToCompare) in enumerate(self) {
+    mutating func removeObject<U: Equatable>(_ object: U) -> Bool {
+        for (idx, objectToCompare) in enumerated() {
             if let to = objectToCompare as? U {
                 if object == to {
-                    self.removeAtIndex(idx)
+                    self.remove(at: idx)
                     return true
                 }
             }

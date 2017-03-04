@@ -16,34 +16,34 @@ struct AnimationProperties {
 }
 
 enum FlipDirection {
-    case Left
-    case Right
-    case NotSet
+    case left
+    case right
+    case notSet
 }
 
 enum FlipAnimationStatus {
-    case None
-    case Beginning
-    case Active
-    case Completing
-    case Complete
-    case Interrupt
-    case Fail
+    case none
+    case beginning
+    case active
+    case completing
+    case complete
+    case interrupt
+    case fail
 }
 
 class DJKAnimationLayer: CATransformLayer {
     
-    var flipDirection:FlipDirection = .NotSet
-    var flipAnimationStatus = FlipAnimationStatus.None
+    var flipDirection:FlipDirection = .notSet
+    var flipAnimationStatus = FlipAnimationStatus.none
     var flipProperties = AnimationProperties(currentAngle: 0, startAngle: 0, endFlipAngle: CGFloat(-M_PI))
     var isFirstOrLastPage:Bool = false
     
     lazy var frontLayer:CALayer = {
         var fLayer = CALayer(layer: self)
         fLayer.frame = self.bounds
-        fLayer.doubleSided = false
+        fLayer.isDoubleSided = false
         fLayer.transform = CATransform3DMakeRotation(CGFloat(M_PI), 0, 1.0, 0);
-        fLayer.backgroundColor = UIColor.blackColor().CGColor
+        fLayer.backgroundColor = UIColor.black.cgColor
         
         self.addSublayer(fLayer)
         return fLayer
@@ -53,9 +53,9 @@ class DJKAnimationLayer: CATransformLayer {
         
         var bLayer = CALayer(layer: self)
         bLayer.frame = self.bounds
-        bLayer.doubleSided = false
+        bLayer.isDoubleSided = false
         bLayer.transform = CATransform3DMakeRotation(0, 0, 1.0, 0);
-        bLayer.backgroundColor = UIColor.greenColor().CGColor
+        bLayer.backgroundColor = UIColor.green.cgColor
         
         self.addSublayer(bLayer)
         return bLayer
@@ -63,7 +63,7 @@ class DJKAnimationLayer: CATransformLayer {
 
     convenience init(frame:CGRect, isFirstOrLast:Bool) {
         self.init()
-        self.flipAnimationStatus = FlipAnimationStatus.Beginning
+        self.flipAnimationStatus = FlipAnimationStatus.beginning
         self.anchorPoint = CGPoint(x: 1.0, y: 0.5)
         self.frame = frame
         
@@ -74,17 +74,17 @@ class DJKAnimationLayer: CATransformLayer {
         super.init()
     }
     
-    override init(layer: AnyObject!) {
+    override init(layer: Any) {
         super.init(layer: layer)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func updateFlipDirection(direction:FlipDirection) {
+    func updateFlipDirection(_ direction:FlipDirection) {
         flipDirection = direction
-        if flipDirection == .Left {
+        if flipDirection == .left {
             flipProperties.currentAngle = CGFloat(-M_PI)
             flipProperties.startAngle = CGFloat(-M_PI)
             flipProperties.endFlipAngle = 0
@@ -97,16 +97,16 @@ class DJKAnimationLayer: CATransformLayer {
         }
     }
     
-    func setTheFrontLayer(image:UIImage) {
-        var tmpImageRef = image.CGImage
-        var rightImgRef = CGImageCreateWithImageInRect(tmpImageRef, CGRectMake(image.size.width/2 * UIScreen.mainScreen().scale, 0, image.size.width/2 * UIScreen.mainScreen().scale, image.size.height * UIScreen.mainScreen().scale))
+    func setTheFrontLayer(_ image:UIImage) {
+        let tmpImageRef = image.cgImage
+        let rightImgRef = tmpImageRef?.cropping(to: CGRect(x: image.size.width/2 * UIScreen.main.scale, y: 0, width: image.size.width/2 * UIScreen.main.scale, height: image.size.height * UIScreen.main.scale))
 
         frontLayer.contents = rightImgRef
     }
     
-    func setTheBackLayer(image:UIImage) {
-        var tmpImageRef = image.CGImage
-        var rightImgRef = CGImageCreateWithImageInRect(tmpImageRef, CGRectMake(0, 0, image.size.width/2 * UIScreen.mainScreen().scale, image.size.height * UIScreen.mainScreen().scale))
+    func setTheBackLayer(_ image:UIImage) {
+        let tmpImageRef = image.cgImage
+        let rightImgRef = tmpImageRef?.cropping(to: CGRect(x: 0, y: 0, width: image.size.width/2 * UIScreen.main.scale, height: image.size.height * UIScreen.main.scale))
         
         backLayer.contents = rightImgRef
     }
