@@ -60,11 +60,11 @@ class ViewController: UIViewController, DJKFlipperDataSource {
     
     //MARK: - FlipperDataSource Methods
     
-    func numberOfPages(flipper: DJKFlipperView) -> NSInteger {
+    func numberOfPages(_ flipper: DJKFlipperView) -> NSInteger {
         return flipperViewArray.count
     }
     
-    func viewForPage(page: NSInteger, flipper: DJKFlipperView) -> UIView {
+    func viewForPage(_ page: NSInteger, flipper: DJKFlipperView) -> UIView {
         return flipperViewArray[page].view
     }
 }
