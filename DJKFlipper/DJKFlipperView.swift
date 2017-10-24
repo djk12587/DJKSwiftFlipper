@@ -27,7 +27,7 @@ open class DJKFlipperView: UIView {
     open var dataSource:DJKFlipperDataSource?
     
     lazy var staticView:DJKStaticView = {
-        let view = DJKStaticView(frame: self.frame)
+        let view = DJKStaticView(frame: self.bounds)
         return view
         }()
     
@@ -63,7 +63,7 @@ open class DJKFlipperView: UIView {
     
     override open func layoutSubviews() {
         super.layoutSubviews()
-        self.staticView.updateFrame(self.frame)
+        self.staticView.updateFrame(self.bounds)
     }
     
     func updateTheActiveView() {
