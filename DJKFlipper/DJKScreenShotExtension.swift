@@ -18,17 +18,17 @@ extension UIView {
         UIGraphicsEndImageContext()
         return image!
     }
-    
+
     func takeSnapShotWithoutScreenUpdate() -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.main.scale)
-        var image:UIImage? = nil
-        
+        var image: UIImage? = nil
+
         if self.drawHierarchy(in: self.bounds, afterScreenUpdates: false) {
             image = UIGraphicsGetImageFromCurrentImageContext()
         }
 
         UIGraphicsEndImageContext()
-        
+
         return image
     }
 }
