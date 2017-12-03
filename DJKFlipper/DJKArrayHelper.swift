@@ -12,7 +12,7 @@ import Foundation
 extension Array {
     @discardableResult
     mutating func remove<U: Equatable>(object: U) -> Bool {
-        for (idx, objectToCompare) in self.enumerated() {  //in old swift use enumerate(self)
+        for (idx, objectToCompare) in self.enumerated() { //in old swift use enumerate(self)
             if let to = objectToCompare as? U {
                 if object == to {
                     self.remove(at: idx)

@@ -9,6 +9,6 @@
 import UIKit
 
 struct DJKFlipperConstants {
-    static let SpeedThreshold:CGFloat = 0.5
-    static let DurationConstant:CGFloat = 0.75
+    static let SpeedThreshold: CGFloat = 0.5
+    static let DurationConstant: CGFloat = 0.75
 }
